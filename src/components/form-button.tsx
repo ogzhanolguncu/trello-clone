@@ -3,9 +3,10 @@ import { Flex, Image, Box } from '@chakra-ui/react';
 type FormButtonProps = {
   src: string;
   title: string;
+  onClick?: () => void;
 };
 
-const FormButton = ({ src, title }: FormButtonProps) => {
+const FormButton = ({ src, title, onClick }: FormButtonProps) => {
   return (
     <Flex
       flexDirection="row"
@@ -23,6 +24,7 @@ const FormButton = ({ src, title }: FormButtonProps) => {
       marginBottom="12px"
       transition="background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s"
       cursor="pointer"
+      onClick={onClick}
     >
       <Image src={src} height="18px" />
       <Box

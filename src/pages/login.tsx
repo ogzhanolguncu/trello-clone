@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,14 +10,52 @@ import {
   Divider,
   Link,
   Text,
+  Alert,
+  AlertTitle,
+  CloseButton,
 } from '@chakra-ui/react';
+import firebase from 'firebase';
+import { useHistory } from 'react-router-dom';
 
 import FormButton from '../components/form-button';
+import FirebaseContext from '../contexts/firebaseContext';
+import * as ROUTES from '../constants/routes';
 
 const Login = () => {
+  const firebaseContext = useContext(FirebaseContext);
+  const history = useHistory();
+
+  const [emailAddress, setEmailAddress] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
+
   useEffect(() => {
     document.title = 'Log in to Trello';
   }, []);
+
+  const isValid = !!emailAddress && !!password;
+
+  const handleLoginWithGoogle = async () => {
+    try {
+      const auth = firebaseContext?.firebase.auth();
+      const googleProvider = new firebase.auth.GoogleAuthProvider();
+      await auth?.signInWithPopup(googleProvider);
+      history.push(ROUTES.DASHBOARD);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const handleLoginWithEmail = async () => {
+    try {
+      await firebaseContext?.firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+      history.push(ROUTES.DASHBOARD);
+    } catch (error) {
+      setEmailAddress('');
+      setPassword('');
+      setError(error.message);
+    }
+  };
 
   return (
     <Box background="#F9FAFC" height="100vh" justifyContent="center" alignItems="center">
@@ -34,6 +72,13 @@ const Login = () => {
           justifyContent="center"
           flexDirection="column"
         >
+          {!!error && (
+            <Alert status="error" borderRadius="15px">
+              <AlertTitle mr={2}>{error}</AlertTitle>
+              <CloseButton position="absolute" right="8px" top="8px" onClick={() => setError('')} />
+            </Alert>
+          )}
+
           <Heading
             as="h1"
             textAlign="center"
@@ -48,6 +93,7 @@ const Login = () => {
           </Heading>
           <FormControl id="email">
             <Input
+              name="email"
               type="email"
               placeholder="Enter email"
               margin="0 0 1.2em"
@@ -57,10 +103,13 @@ const Login = () => {
               borderRadius="3px"
               height="44px"
               transition="background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s"
+              onChange={({ target }) => setEmailAddress(target.value)}
+              required
             />
           </FormControl>
           <FormControl id="password">
             <Input
+              name="password"
               type="password"
               placeholder="Enter password"
               margin="0 0 1.2em"
@@ -70,15 +119,27 @@ const Login = () => {
               borderRadius="3px"
               height="44px"
               transition="background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s"
+              onChange={({ target }) => setPassword(target.value)}
+              required
             />
           </FormControl>
-          <Button backgroundColor="#5AAC44" color="#fff">
+          <Button
+            backgroundColor="#5AAC44"
+            color="#fff"
+            onClick={handleLoginWithEmail}
+            _hover={{ backgroundColor: '#61BD4F' }}
+            disabled={!isValid}
+          >
             Log in
           </Button>
           <Box textAlign="center" fontSize="12px" marginTop="16px" marginBottom="16px">
             OR
           </Box>
-          <FormButton src="/static/images/google-icon.svg" title="Continue with Google" />
+          <FormButton
+            src="/static/images/google-icon.svg"
+            title="Continue with Google"
+            onClick={handleLoginWithGoogle}
+          />
           <FormButton src="/static/images/github-icon.svg" title="Continue with Github" />
           <Divider borderTop="1px solid hsl(0,0%,80%)" margin="1em 0" />
           <Flex flexDirection="row" alignItems="center" justifyContent="center" marginBottom="1rem">

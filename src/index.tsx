@@ -3,10 +3,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { ChakraProvider } from '@chakra-ui/react';
+import FirebaseContext from './contexts/firebaseContext';
+import { firebase, FieldValue } from './firebase/firebase';
 
 ReactDOM.render(
   <ChakraProvider>
-    <App />
+    <FirebaseContext.Provider value={{ firebase, FieldValue }}>
+      <App />
+    </FirebaseContext.Provider>
   </ChakraProvider>,
   document.getElementById('root'),
 );
