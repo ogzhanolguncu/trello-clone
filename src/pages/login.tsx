@@ -8,18 +8,19 @@ import {
   Image,
   Input,
   Divider,
-  Link,
+  Link as StyledLink,
   Text,
   Alert,
   AlertTitle,
   CloseButton,
 } from '@chakra-ui/react';
 import firebase from 'firebase';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import FormButton from '../components/form-button';
 import FirebaseContext from '../contexts/firebaseContext';
 import * as ROUTES from '../constants/routes';
+import AuthFooter from '../components/auth-footer';
 
 const Login = () => {
   const firebaseContext = useContext(FirebaseContext);
@@ -58,8 +59,16 @@ const Login = () => {
   };
 
   return (
-    <Box background="#F9FAFC" height="100vh" justifyContent="center" alignItems="center">
-      <Image src="/static/images/logo.svg" height="43px" margin="40px auto" />
+    <Flex
+      background="#F9FAFC"
+      height="100vh"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
+      <Flex justifyContent="center" marginTop="40px" marginBottom="40px">
+        <Image src="/static/images/logo.svg" height="43px" />
+      </Flex>
       <Flex width="100%" padding="0" marginBottom="30px" justifyContent="center">
         <Flex
           width="100%"
@@ -143,31 +152,24 @@ const Login = () => {
           <FormButton src="/static/images/github-icon.svg" title="Continue with Github" />
           <Divider borderTop="1px solid hsl(0,0%,80%)" margin="1em 0" />
           <Flex flexDirection="row" alignItems="center" justifyContent="center" marginBottom="1rem">
-            <Link fontSize="14px" color="#0052CC">
-              Can't log in
+            <Link to={ROUTES.RESET_PASSWORD}>
+              <StyledLink fontSize="14px" color="#0052CC">
+                Can't log in?
+              </StyledLink>
             </Link>
             <Text fontSize="5px" margin="auto 10px" display="flex">
               {'\u2B24'}
             </Text>
-            <Link fontSize="14px" color="#0052CC">
-              Sign up for an account
+            <Link to={ROUTES.SIGN_UP}>
+              <StyledLink fontSize="14px" color="#0052CC">
+                Sign up for an account
+              </StyledLink>
             </Link>
           </Flex>
         </Flex>
       </Flex>
-      <Box
-        alignItems="flex-end"
-        justifyContent="space-between"
-        display={['none', 'flex', 'flex', 'flex']}
-      >
-        <Box width="500px" bottom="0" left="0" zIndex="10">
-          <Image src="/static/images/family01.svg" />
-        </Box>
-        <Box width="600px" bottom="0" right="0" zIndex="10">
-          <Image src="/static/images/family02.svg" />
-        </Box>
-      </Box>
-    </Box>
+      <AuthFooter />
+    </Flex>
   );
 };
 

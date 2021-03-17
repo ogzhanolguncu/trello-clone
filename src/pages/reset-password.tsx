@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -9,51 +8,36 @@ import {
   Input,
   Divider,
   Link as StyledLink,
-  Text,
   Alert,
   AlertTitle,
   CloseButton,
+  FormLabel,
 } from '@chakra-ui/react';
-import firebase from 'firebase';
 import { useHistory, Link } from 'react-router-dom';
 
-import FormButton from '../components/form-button';
 import FirebaseContext from '../contexts/firebaseContext';
 import * as ROUTES from '../constants/routes';
 import AuthFooter from '../components/auth-footer';
 
-const SignUp = () => {
+const ResetPassword = () => {
   const firebaseContext = useContext(FirebaseContext);
   const history = useHistory();
 
   const [emailAddress, setEmailAddress] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    document.title = 'Sign up to Trello';
+    document.title = 'Log in to Trello';
   }, []);
 
-  const isValid = !!emailAddress && !!password;
+  const isValid = !!emailAddress;
 
-  const handleLoginWithGoogle = async () => {
+  const handleResetPassword = async () => {
     try {
-      const auth = firebaseContext?.firebase.auth();
-      const googleProvider = new firebase.auth.GoogleAuthProvider();
-      await auth?.signInWithPopup(googleProvider);
-      history.push(ROUTES.DASHBOARD);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const handleLoginWithEmail = async () => {
-    try {
-      await firebaseContext?.firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
-      history.push(ROUTES.DASHBOARD);
+      await firebaseContext?.firebase.auth().sendPasswordResetEmail(emailAddress);
+      history.push(ROUTES.LOGIN);
     } catch (error) {
       setEmailAddress('');
-      setPassword('');
       setError(error.message);
     }
   };
@@ -98,9 +82,12 @@ const SignUp = () => {
             marginTop="10px"
             marginBottom="25px"
           >
-            Sign up to Trello
+            Can't log in?
           </Heading>
           <FormControl id="email">
+            <FormLabel fontWeight="600" fontSize="12px" color="#5E6C84">
+              We'll send a recovery link to
+            </FormLabel>
             <Input
               name="email"
               type="email"
@@ -116,53 +103,20 @@ const SignUp = () => {
               required
             />
           </FormControl>
-          <FormControl id="password">
-            <Input
-              name="password"
-              type="password"
-              placeholder="Enter password"
-              margin="0 0 1.2em"
-              fontSize="14px"
-              backgroundColor="#FAFBFC"
-              border="2px solid #DFE1E6"
-              borderRadius="3px"
-              height="44px"
-              transition="background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s"
-              onChange={({ target }) => setPassword(target.value)}
-              required
-            />
-          </FormControl>
           <Button
             backgroundColor="#5AAC44"
             color="#fff"
-            onClick={handleLoginWithEmail}
+            onClick={handleResetPassword}
             _hover={{ backgroundColor: '#61BD4F' }}
             disabled={!isValid}
           >
-            Sign in
+            Send recovery link
           </Button>
-          <Box textAlign="center" fontSize="12px" marginTop="16px" marginBottom="16px">
-            OR
-          </Box>
-          <FormButton
-            src="/static/images/google-icon.svg"
-            title="Continue with Google"
-            onClick={handleLoginWithGoogle}
-          />
-          <FormButton src="/static/images/github-icon.svg" title="Continue with Github" />
           <Divider borderTop="1px solid hsl(0,0%,80%)" margin="1em 0" />
           <Flex flexDirection="row" alignItems="center" justifyContent="center" marginBottom="1rem">
-            <Link to={ROUTES.RESET_PASSWORD}>
+            <Link to="/sign-up">
               <StyledLink fontSize="14px" color="#0052CC">
-                Can't log in?
-              </StyledLink>
-            </Link>
-            <Text fontSize="5px" margin="auto 10px" display="flex">
-              {'\u2B24'}
-            </Text>
-            <Link to={ROUTES.LOGIN}>
-              <StyledLink fontSize="14px" color="#0052CC">
-                Already have an account?
+                Sign up for an account
               </StyledLink>
             </Link>
           </Flex>
@@ -173,4 +127,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ResetPassword;
