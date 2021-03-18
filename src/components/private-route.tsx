@@ -10,7 +10,6 @@ type PrivateRouteProps = {
 };
 
 const PrivateRoute = ({ user, children, ...rest }: PrivateRouteProps) => {
-  console.log({ children });
   return (
     <Route
       {...rest}

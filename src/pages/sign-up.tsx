@@ -41,7 +41,7 @@ const SignUp = () => {
       const auth = firebaseContext?.firebase.auth();
       const googleProvider = new firebase.auth.GoogleAuthProvider();
       await auth?.signInWithPopup(googleProvider);
-      history.push(ROUTES.DASHBOARD);
+      history.push(ROUTES.BOARDS);
     } catch (error) {
       setError(error.message);
     }
@@ -50,7 +50,7 @@ const SignUp = () => {
   const handleLoginWithEmail = async () => {
     try {
       await firebaseContext?.firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
-      history.push(ROUTES.DASHBOARD);
+      history.push(ROUTES.BOARDS);
     } catch (error) {
       setEmailAddress('');
       setPassword('');
