@@ -1,9 +1,10 @@
 import { Flex, Icon, Text, Input, InputGroup, InputRightElement, Image } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import MenuButton from './menu-button';
 import * as ROUTES from '../constants/routes';
+import { User } from '@firebase/auth-types';
 
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { HiOutlineHome } from 'react-icons/hi';
@@ -14,8 +15,22 @@ import { IoMdClose } from 'react-icons/io';
 import { CgMathPlus, CgBell } from 'react-icons/cg';
 import { RiErrorWarningLine } from 'react-icons/ri';
 
-const Navbar = () => {
+type NavbarTypes = {
+  user?: User;
+};
+
+const Navbar = ({ user }: NavbarTypes) => {
   const [inputClicked, setInputClicked] = useState(false);
+  const [userIcon, setUserIcon] = useState<string>();
+
+  const generateUserIcon = () => {
+    const name = `${user?.displayName?.split(' ')[0][0]}${user?.displayName?.split(' ')[1][0]}`;
+    setUserIcon(name);
+  };
+
+  useEffect(() => {
+    generateUserIcon();
+  }, []);
 
   return (
     <Flex
@@ -101,6 +116,19 @@ const Navbar = () => {
         <MenuButton>
           <Icon as={CgBell} width="32px" />
         </MenuButton>
+      </Flex>
+      <Flex backgroundColor="#172B4D" line-height="32px" color="#fff" borderRadius="50%">
+        <Flex
+          as="span"
+          height="32px"
+          width="32px"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="14px"
+          fontWeight="500"
+        >
+          {userIcon}
+        </Flex>
       </Flex>
     </Flex>
   );
