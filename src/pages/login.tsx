@@ -8,7 +8,6 @@ import {
   Image,
   Input,
   Divider,
-  Link as StyledLink,
   Text,
   Alert,
   AlertTitle,
@@ -21,10 +20,12 @@ import FormButton from '../components/form-button';
 import FirebaseContext from '../contexts/firebaseContext';
 import * as ROUTES from '../constants/routes';
 import AuthFooter from '../components/auth-footer';
+import useEnter from '../hooks/use-enter';
 
 const Login = () => {
   const firebaseContext = useContext(FirebaseContext);
   const history = useHistory();
+  const [keyPressed, setKeyPressed] = useEnter();
 
   const [emailAddress, setEmailAddress] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -33,6 +34,13 @@ const Login = () => {
   useEffect(() => {
     document.title = 'Log in to Trello';
   }, []);
+
+  useEffect(() => {
+    if (isValid) {
+      handleLoginWithEmail();
+      setKeyPressed(false);
+    }
+  }, [keyPressed]);
 
   const isValid = !!emailAddress && !!password;
 
@@ -104,6 +112,7 @@ const Login = () => {
             <Input
               name="email"
               type="email"
+              value={emailAddress}
               placeholder="Enter email"
               margin="0 0 1.2em"
               fontSize="14px"
@@ -119,6 +128,7 @@ const Login = () => {
           <FormControl id="password">
             <Input
               name="password"
+              value={password}
               type="password"
               placeholder="Enter password"
               margin="0 0 1.2em"
@@ -153,17 +163,17 @@ const Login = () => {
           <Divider borderTop="1px solid hsl(0,0%,80%)" margin="1em 0" />
           <Flex flexDirection="row" alignItems="center" justifyContent="center" marginBottom="1rem">
             <Link to={ROUTES.RESET_PASSWORD}>
-              <StyledLink fontSize="14px" color="#0052CC">
+              <Text fontSize="14px" color="#0052CC">
                 Can't log in?
-              </StyledLink>
+              </Text>
             </Link>
             <Text fontSize="5px" margin="auto 10px" display="flex">
               {'\u2B24'}
             </Text>
             <Link to={ROUTES.SIGN_UP}>
-              <StyledLink fontSize="14px" color="#0052CC">
+              <Text fontSize="14px" color="#0052CC">
                 Sign up for an account
-              </StyledLink>
+              </Text>
             </Link>
           </Flex>
         </Flex>

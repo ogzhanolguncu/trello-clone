@@ -1,20 +1,15 @@
 import React, { useEffect } from 'react';
 
 import Navbar from '../components/navbar';
-import { User } from '@firebase/auth-types';
 
-type BoardsTypes = {
-  user?: User;
-};
-
-const Boards = ({ user }: BoardsTypes) => {
+const Boards = () => {
   useEffect(() => {
     document.title = 'Boards | Trello';
   }, []);
 
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
     </>
   );
 };

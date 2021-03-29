@@ -8,7 +8,6 @@ import {
   Image,
   Input,
   Divider,
-  Link as StyledLink,
   Text,
   Alert,
   AlertTitle,
@@ -28,6 +27,7 @@ const SignUp = () => {
 
   const [emailAddress, setEmailAddress] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [display, setDisplayName] = useState<string>('');
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
@@ -50,7 +50,11 @@ const SignUp = () => {
   const handleLoginWithEmail = async () => {
     try {
       await firebaseContext?.firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
-      history.push(ROUTES.BOARDS);
+      const listener = firebaseContext?.firebase
+        .auth()
+        .onAuthStateChanged((currUser) => currUser?.updateProfile({ displayName: display }));
+      history.push(ROUTES.LOGIN);
+      listener?.();
     } catch (error) {
       setEmailAddress('');
       setPassword('');
@@ -132,6 +136,22 @@ const SignUp = () => {
               required
             />
           </FormControl>
+          <FormControl id="diplayName">
+            <Input
+              name="diplayName"
+              type="diplayName"
+              placeholder="Enter display name"
+              margin="0 0 1.2em"
+              fontSize="14px"
+              backgroundColor="#FAFBFC"
+              border="2px solid #DFE1E6"
+              borderRadius="3px"
+              height="44px"
+              transition="background-color .2s ease-in-out 0s,border-color .2s ease-in-out 0s"
+              onChange={({ target }) => setDisplayName(target.value)}
+              required
+            />
+          </FormControl>
           <Button
             backgroundColor="#5AAC44"
             color="#fff"
@@ -153,17 +173,17 @@ const SignUp = () => {
           <Divider borderTop="1px solid hsl(0,0%,80%)" margin="1em 0" />
           <Flex flexDirection="row" alignItems="center" justifyContent="center" marginBottom="1rem">
             <Link to={ROUTES.RESET_PASSWORD}>
-              <StyledLink fontSize="14px" color="#0052CC">
+              <Text fontSize="14px" color="#0052CC">
                 Can't log in?
-              </StyledLink>
+              </Text>
             </Link>
             <Text fontSize="5px" margin="auto 10px" display="flex">
               {'\u2B24'}
             </Text>
             <Link to={ROUTES.LOGIN}>
-              <StyledLink fontSize="14px" color="#0052CC">
+              <Text fontSize="14px" color="#0052CC">
                 Already have an account?
-              </StyledLink>
+              </Text>
             </Link>
           </Flex>
         </Flex>

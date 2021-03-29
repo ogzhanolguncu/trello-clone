@@ -16,7 +16,7 @@ const PrivateRoute = ({ user, children, ...rest }: PrivateRouteProps) => {
       render={({ location }) => {
         if (user) {
           if (React.isValidElement(children)) {
-            return React.cloneElement(children, { user });
+            return React.cloneElement(children);
           }
         }
         if (!user) {

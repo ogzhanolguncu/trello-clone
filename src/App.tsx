@@ -20,12 +20,12 @@ function App() {
       <Router>
         <Suspense fallback={<p>Loading...</p>}>
           <Switch>
-            <Route path={ROUTES.LOGIN} component={Login} />
-            <Route path={ROUTES.SIGN_UP} component={SignUp} />
-            <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
             <PrivateRoute user={user} path={ROUTES.BOARDS} exact>
               <Boards />
             </PrivateRoute>
+            <Route path={ROUTES.LOGIN} component={Login} />
+            <Route path={ROUTES.SIGN_UP} component={SignUp} />
+            <Route path={ROUTES.RESET_PASSWORD} component={ResetPassword} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

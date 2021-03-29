@@ -5,7 +5,7 @@ type MenuBottonProps = {
   children: React.ReactNode;
 };
 
-const MenuButton = ({ children }: MenuBottonProps) => {
+const CustomMenuButton = ({ children }: MenuBottonProps) => {
   return (
     <Box
       borderRadius="3px"
@@ -28,4 +28,4 @@ const MenuButton = ({ children }: MenuBottonProps) => {
   );
 };
 
-export default MenuButton;
+export default CustomMenuButton;
