@@ -15,6 +15,7 @@ const MainContainer = ({ children }: MainContainer) => {
       alignItems="flex-start"
       justifyContent="center"
       minHeight="calc(100vh - 40px)"
+      backgroundColor="#FAFBFC"
     >
       <StickyNavbar />
       {children}
