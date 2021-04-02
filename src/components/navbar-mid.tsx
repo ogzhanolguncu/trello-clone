@@ -1,6 +1,6 @@
 import { Flex, Image } from '@chakra-ui/react';
 
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from 'constants/routes';
 
 import { Link } from 'react-router-dom';
 

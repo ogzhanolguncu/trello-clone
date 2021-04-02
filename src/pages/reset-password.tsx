@@ -15,9 +15,9 @@ import {
 } from '@chakra-ui/react';
 import { useHistory, Link } from 'react-router-dom';
 
-import FirebaseContext from '../contexts/firebaseContext';
-import * as ROUTES from '../constants/routes';
-import AuthFooter from '../components/auth-footer';
+import FirebaseContext from 'contexts/firebaseContext';
+import * as ROUTES from 'constants/routes';
+import AuthFooter from 'components/auth-footer';
 
 const ResetPassword = () => {
   const firebaseContext = useContext(FirebaseContext);

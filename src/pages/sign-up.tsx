@@ -16,10 +16,10 @@ import {
 import firebase from 'firebase';
 import { useHistory, Link } from 'react-router-dom';
 
-import FormButton from '../components/form-button';
-import FirebaseContext from '../contexts/firebaseContext';
-import * as ROUTES from '../constants/routes';
-import AuthFooter from '../components/auth-footer';
+import FormButton from 'components/form-button';
+import FirebaseContext from 'contexts/firebaseContext';
+import * as ROUTES from 'constants/routes';
+import AuthFooter from 'components/auth-footer';
 
 const SignUp = () => {
   const firebaseContext = useContext(FirebaseContext);

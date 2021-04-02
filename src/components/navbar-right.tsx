@@ -7,13 +7,13 @@ import { CgMathPlus, CgBell } from 'react-icons/cg';
 import { IoCloseSharp } from 'react-icons/io5';
 import { RiErrorWarningLine } from 'react-icons/ri';
 
-import FirebaseContext from '../contexts/firebaseContext';
-import UserContext from '../contexts/userContext';
+import FirebaseContext from 'contexts/firebaseContext';
+import UserContext from 'contexts/userContext';
 
 import CustomMenuButton from './custom-menu-button';
 import MenuText from './menu-text';
 
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from 'constants/routes';
 
 const NavbarRight = () => {
   const user = useContext(UserContext)?.user;

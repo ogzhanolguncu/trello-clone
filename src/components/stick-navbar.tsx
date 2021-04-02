@@ -6,7 +6,7 @@ import { RiTrelloLine } from 'react-icons/ri';
 
 import StickyNavbarLink from './sticky-navbar-link';
 
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from 'constants/routes';
 
 const StickyNavbar = () => {
   return (

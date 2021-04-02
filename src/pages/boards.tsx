@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
-import Navbar from '../components/navbar';
-import MainContainer from '../components/main-container';
-import BoardSection from '../components/board-section';
+import Navbar from 'components/navbar';
+import MainContainer from 'components/main-container';
+import BoardSection from 'components/board-section';
 
 const Boards = () => {
   useEffect(() => {

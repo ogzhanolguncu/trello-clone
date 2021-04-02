@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from 'constants/routes';
 import { User } from '@firebase/auth-types';
 
 type PrivateRouteProps = {

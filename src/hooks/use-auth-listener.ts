@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import FirebaseContext from '../contexts/firebaseContext';
+
+import FirebaseContext from 'contexts/firebaseContext';
 import { User } from '@firebase/auth-types';
 
 export default function useAuthListener() {
