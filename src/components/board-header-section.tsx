@@ -1,10 +1,15 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
-import { WiTime4 } from 'react-icons/wi';
+import { IconType } from 'react-icons';
 
-const BoardHeaderSection = () => {
+type BoardHeaderSectionProps = {
+  text: string;
+  icon: IconType;
+};
+
+const BoardHeaderSection = ({ text, icon }: BoardHeaderSectionProps) => {
   return (
     <Flex justifyContent="flex-start" alignItems="center" width="100%" padding="0 0 11px">
-      <Icon as={WiTime4} height="27px" width="27px" marginRight="11px" color="#42526e" />
+      <Icon as={icon} height="27px" width="27px" marginRight="11px" color="#42526e" />
       <Text
         display="inline-block"
         lineHeight="24px"
@@ -14,7 +19,7 @@ const BoardHeaderSection = () => {
         textOverflow="ellipsis"
         whiteSpace="nowrap"
       >
-        Recently viewed
+        {text}
       </Text>
     </Flex>
   );

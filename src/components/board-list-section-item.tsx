@@ -1,7 +1,9 @@
-import { Box, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { TiStarOutline } from 'react-icons/ti';
 
 const BoardListSectionItem = () => {
+  const [mouseOverBoards, setMouseOverBoard] = useState<boolean>(false);
   return (
     <Box
       width="23.5%"
@@ -10,6 +12,10 @@ const BoardListSectionItem = () => {
       transform="translate(0)"
       cursor="pointer"
       _last={{ marginEnd: '0' }}
+      onMouseEnter={() => setMouseOverBoard(true)}
+      onMouseLeave={() => setMouseOverBoard(false)}
+      filter="brightness(100%)"
+      _hover={{ filter: 'brightness(85%)' }}
     >
       <Box
         backgroundImage="url(/static/images/custom-background-1.jpg)"
@@ -53,6 +59,29 @@ const BoardListSectionItem = () => {
           >
             Backend
           </Text>
+          {mouseOverBoards && (
+            <Flex
+              widths="100%"
+              justifyContent="flex-end"
+              transitionDuration=".15s"
+              transitionProperty="color,background,opacity,transform,width,margin"
+              transform="translateZ(0)"
+            >
+              <Icon
+                as={TiStarOutline}
+                width="16px"
+                color="white"
+                lineHeight="18px"
+                font-size="14px"
+                height="16px"
+                opacity=".75"
+                _hover={{
+                  opacity: '1',
+                  transform: 'scale(1.2)',
+                }}
+              />
+            </Flex>
+          )}
         </Box>
       </Box>
     </Box>
