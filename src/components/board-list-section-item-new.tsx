@@ -1,21 +1,8 @@
-import React from 'react';
-import {
-  Box,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  useDisclosure,
-  Flex,
-  Input,
-  Icon,
-} from '@chakra-ui/react';
-import { IoMdClose } from 'react-icons/io';
+import { Box, Text, useDisclosure } from '@chakra-ui/react';
+import AddNewBoardModel from './add-new-board-model';
 
 const BoardListSectionItemNew = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <>
       <Box
@@ -53,77 +40,7 @@ const BoardListSectionItemNew = () => {
           </Text>
         </Box>
       </Box>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent
-          backgroundColor="transparent"
-          boxShadow="none"
-          position="relative"
-          top="35px"
-          marginY="0"
-        >
-          <ModalBody>
-            <Flex>
-              <Box
-                backgroundSize="cover"
-                backgroundPosition="50%"
-                borderRadius="3px"
-                boxSizing="border-box"
-                height="96px"
-                padding="10px 10px 10px 16px"
-                position="relative"
-                width="296px"
-                backgroundColor="rgb(0, 121, 191)"
-              >
-                <Input
-                  border="none!important"
-                  background="transparent!important"
-                  boxShadow="none"
-                  boxSizing="border-box"
-                  marginBottom="4px"
-                  padding="2px 8px"
-                  position="relative"
-                  height="30px"
-                  left="-8px"
-                  width="calc(100% - 18px - 16px)"
-                  color="#fff"
-                  fontWeight="700"
-                  placeholder="Add board title"
-                  _placeholder={{
-                    fontFamily:
-                      '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif',
-                    fontSize: '16px',
-                    fontWeight: '700',
-                    left: '-8px',
-                    lineHeight: '24px',
-                    color: 'rgba(255, 255, 255, 0.603)',
-                  }}
-                  _focus={{
-                    boxShadow: 'none',
-                    backgroundColor: 'hsla(0,0%,100%,.3)!important',
-                    borderRadius: '3px',
-                    caretColor: '#fff',
-                  }}
-                  _hover={{
-                    background: 'hsla(0,0%,100%,.15)!important',
-                    boxShadow: 'none',
-                  }}
-                />
-                <Icon
-                  as={IoMdClose}
-                  width="16px"
-                  color="#fff"
-                  onClick={onClose}
-                  position="absolute"
-                  right="10px"
-                  top="10px"
-                />
-              </Box>
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <AddNewBoardModel isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
