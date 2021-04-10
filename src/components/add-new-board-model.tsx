@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -12,24 +12,28 @@ import {
 } from '@chakra-ui/react';
 import { IoMdClose } from 'react-icons/io';
 
+import { createNewBoard } from 'firebase/services';
+
+import UserContext from 'contexts/userContext';
+
+import { colors } from 'constants/colors';
+
 type AddNewBoardModel = {
   isOpen: boolean;
   onClose: () => void;
 };
 
 const AddNewBoardModel = ({ isOpen, onClose }: AddNewBoardModel) => {
+  const user = useContext(UserContext)?.user;
+
   const [boardName, setBoardName] = useState<string>('');
-  const colors = [
-    'rgb(0, 121, 191)',
-    'rgb(210, 144, 52)',
-    'rgb(81, 152, 57)',
-    'rgb(205, 90, 145)',
-    'rgb(137, 96, 158)',
-    'rgb(176, 70, 50)',
-    'rgb(90, 205, 105)',
-    'rgb(22, 87, 25)',
-    'rgb(50, 58, 176)',
-  ];
+  const [selectedColor, setSelectedColor] = useState<string>('');
+
+  const handleCreateNewBoard = () => {
+    createNewBoard(boardName, selectedColor, user?.uid);
+    onClose();
+    setBoardName('');
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -52,7 +56,7 @@ const AddNewBoardModel = ({ isOpen, onClose }: AddNewBoardModel) => {
               padding="10px 10px 10px 16px"
               position="relative"
               width="296px"
-              backgroundColor="rgb(0, 121, 191)"
+              backgroundColor={selectedColor || 'rgb(0, 121, 191)'}
             >
               <Input
                 onChange={({ target }) => setBoardName(target.value)}
@@ -108,7 +112,6 @@ const AddNewBoardModel = ({ isOpen, onClose }: AddNewBoardModel) => {
               flexDirection="row"
               flexWrap="wrap"
               justifyContent="space-between"
-              listStyle="none"
               margin="0 0 0 8px"
             >
               {colors.map((color, index) => (
@@ -123,6 +126,7 @@ const AddNewBoardModel = ({ isOpen, onClose }: AddNewBoardModel) => {
                   backgroundSize="cover"
                   filter="brightness(100%)"
                   _hover={{ filter: 'brightness(90%)' }}
+                  onClick={() => setSelectedColor(color)}
                 >
                   <Box
                     alignItems="center"
@@ -153,13 +157,16 @@ const AddNewBoardModel = ({ isOpen, onClose }: AddNewBoardModel) => {
             borderRadius="4px"
             padding="6px 12px"
             fontSize="14px"
-            color="#a5adba"
             _hover={{ backgroundColor: 'none' }}
             cursor={boardName ? 'pointer' : 'not-allowed'}
             disabled={!boardName}
             _disabled={{
               backgroundColor: '#f4f5f7',
+              color: '#a5adba',
             }}
+            onClick={handleCreateNewBoard}
+            backgroundColor="#5aac44"
+            color="#fff"
           >
             Create board
           </Button>

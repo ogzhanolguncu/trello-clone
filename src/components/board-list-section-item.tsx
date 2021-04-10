@@ -55,7 +55,6 @@ const BoardListSectionItem = () => {
             overflow="hidden"
             maxHeight="40px"
             width="100%"
-            wordWrap="break-word"
           >
             Backend
           </Text>
@@ -72,7 +71,7 @@ const BoardListSectionItem = () => {
                 width="16px"
                 color="white"
                 lineHeight="18px"
-                font-size="14px"
+                fontSize="14px"
                 height="16px"
                 opacity=".75"
                 _hover={{

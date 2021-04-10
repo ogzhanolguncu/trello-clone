@@ -1,1 +1,4 @@
-new board akışına başlanacak
+Board içerikleri düzenlenecek hepsinde aynı cardlar var 
+sadece personalda add ekle olacak
+Personal board eklenecek
+Her bir section için ayrı bir listener yazılacak ->Personal, Recently viewed, starred

@@ -5,6 +5,7 @@ const MenuText = ({ text, ...rest }: { text: string; [x: string]: any }) => {
     <Text
       padding="6px 12px"
       fontSize="14px"
+      cursor="pointer"
       _hover={{
         backgroundColor: 'transparent',
         border: 'none',

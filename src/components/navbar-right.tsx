@@ -27,7 +27,6 @@ const NavbarRight = () => {
     const name = `${user?.displayName?.split(' ')[0][0].toUpperCase()}${user?.displayName
       ?.split(' ')[1][0]
       .toUpperCase()}`;
-    console.log({ name, user });
     setUserIcon(name);
   };
   useEffect(() => {
@@ -82,6 +81,7 @@ const NavbarRight = () => {
           boxSizing="border-box"
           outline="0"
           overflow="hidden"
+          zIndex="2"
         >
           <Flex flexDirection="column">
             <Flex
