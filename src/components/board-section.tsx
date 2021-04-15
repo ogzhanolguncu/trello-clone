@@ -18,9 +18,9 @@ const BoardSection = () => {
     >
       <Box padding="0 0 20px" maxWidth="1250px" width="100%">
         <BoardHeaderSection text="Starred boards" icon={TiStarOutline} />
-        <BoardListSection />
+        <BoardListSection name="Starred" />
         <BoardHeaderSection text="Recently viewed" icon={WiTime4} />
-        <BoardListSection />
+        <BoardListSection name="RecentlyViewed" />
       </Box>
     </Flex>
   );

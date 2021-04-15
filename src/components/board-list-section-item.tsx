@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 import { TiStarOutline } from 'react-icons/ti';
 
-const BoardListSectionItem = () => {
+type BoardListSectionItemProps = {
+  name: string;
+  starred?: boolean;
+  backgroundColorOrImage: string;
+};
+
+const BoardListSectionItem = ({
+  name: boardName,
+  backgroundColorOrImage = 'url(/static/images/custom-background-1.jpg)',
+}: BoardListSectionItemProps) => {
   const [mouseOverBoards, setMouseOverBoard] = useState<boolean>(false);
   return (
     <Box
@@ -18,9 +27,8 @@ const BoardListSectionItem = () => {
       _hover={{ filter: 'brightness(85%)' }}
     >
       <Box
-        backgroundImage="url(/static/images/custom-background-1.jpg)"
+        background={backgroundColorOrImage}
         borderRadius="3px"
-        backgroundColor="#97a0af"
         backgroundSize="cover"
         backgroundPosition="50%"
         color="#fff"
@@ -56,7 +64,7 @@ const BoardListSectionItem = () => {
             maxHeight="40px"
             width="100%"
           >
-            Backend
+            {boardName}
           </Text>
           {mouseOverBoards && (
             <Flex
